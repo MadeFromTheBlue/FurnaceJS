@@ -1,7 +1,5 @@
 package blue.made.furnacejs.wrap.object;
 
-import blue.made.furnacejs.FObject;
-
 public abstract class MemberSpec
 {
 	public final String name;
@@ -15,12 +13,12 @@ public abstract class MemberSpec
 	
 	public abstract boolean isSet();
 	
-	public Object get(FObject on)
+	public Object get(Object on)
 	{
 		throw new UnsupportedOperationException();
 	}
 	
-	public boolean set(FObject on, Object to)
+	public boolean set(Object on, Object to)
 	{
 		throw new UnsupportedOperationException();
 	}

@@ -1,6 +1,5 @@
 package blue.made.furnacejs;
 
-
 public class FurnaceException extends RuntimeException
 {
 	private static final long serialVersionUID = -2673830522043727293L;
@@ -9,9 +8,9 @@ public class FurnaceException extends RuntimeException
 	{
 		private static final long serialVersionUID = 715165112144088336L;
 		
-		public MemberNotFound(FObject in, String name)
+		public MemberNotFound(Object in, String name)
 		{
-			super("Could not find member %s in %s", name, in.name());
+			super("Could not find member %s in %s", name, in.getClass().getCanonicalName());
 		}
 	}
 	
@@ -19,9 +18,9 @@ public class FurnaceException extends RuntimeException
 	{
 		private static final long serialVersionUID = 507920141781221257L;
 		
-		public MemberReadOnly(FObject in, String name)
+		public MemberReadOnly(Object in, String name)
 		{
-			super("Member %s in %s is read-only", name, in.name());
+			super("Member %s in %s is read-only", name, in.getClass().getCanonicalName());
 		}
 	}
 	

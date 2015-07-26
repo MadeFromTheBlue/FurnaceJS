@@ -1,13 +1,11 @@
-package blue.made.furnacejs;
+package blue.made.furnacejs.util;
 
 import blue.made.furnacejs.annotation.JSGet;
-import blue.made.furnacejs.annotation.JSNullIsUndef;
 import blue.made.furnacejs.annotation.JSSet;
 
-public interface FPropMap<T> extends FObject
+public interface FPropMap<T>
 {
 	@JSGet
-	@JSNullIsUndef
 	public default T get(String id)
 	{
 		return null;
