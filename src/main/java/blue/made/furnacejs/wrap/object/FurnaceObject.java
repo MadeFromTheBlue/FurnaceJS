@@ -4,15 +4,13 @@ import org.mozilla.javascript.Context;
 import org.mozilla.javascript.Scriptable;
 import org.mozilla.javascript.Wrapper;
 
-import blue.made.furnacejs.FObject;
-
 public class FurnaceObject implements Wrapper, Scriptable
 {
 	public FurnaceClass spec;
-	public FObject of;
+	public Object of;
 	public Scriptable parent;
 	
-	public FurnaceObject(FObject of, FurnaceClass clazz, Scriptable scope)
+	public FurnaceObject(Object of, FurnaceClass clazz, Scriptable scope)
 	{
 		this.of = of;
 		this.spec = clazz;
@@ -26,7 +24,7 @@ public class FurnaceObject implements Wrapper, Scriptable
 		{
 			return "null";
 		}
-		return this.of.name();
+		return "JavaObject";
 	}
 	
 	@Override

@@ -1,15 +1,19 @@
 package blue.made.furnacejs.wrap;
 
+import org.mozilla.javascript.Context;
+import org.mozilla.javascript.Scriptable;
 import org.mozilla.javascript.WrapFactory;
-
-import blue.made.furnacejs.Furnace;
 
 public class FurnaceWrapFactory extends WrapFactory
 {
-	public Furnace furnace;
-	
-	public FurnaceWrapFactory(Furnace furnace)
+	public FurnaceWrapFactory()
 	{
-		this.furnace = furnace;
+		
+	}
+	
+	@Override
+	public Scriptable wrapAsJavaObject(Context cx, Scriptable scope, Object javaObject, Class<?> staticType)
+	{
+		
 	}
 }
