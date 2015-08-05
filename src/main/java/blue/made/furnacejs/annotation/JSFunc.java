@@ -9,5 +9,6 @@ import java.lang.annotation.Target;
 @Target(ElementType.METHOD)
 public @interface JSFunc
 {
-	public String value() default "";
+	//TODO Wrap js calling a wrapped object as a function or constructor
+	public String value();
 }

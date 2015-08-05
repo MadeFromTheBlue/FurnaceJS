@@ -6,10 +6,7 @@ import org.mozilla.javascript.WrapFactory;
 
 public class FurnaceWrapFactory extends WrapFactory
 {
-	public FurnaceWrapFactory()
-	{
-		
-	}
+	public static final FurnaceWrapFactory instance = new FurnaceWrapFactory();
 	
 	@Override
 	public Scriptable wrapAsJavaObject(Context cx, Scriptable scope, Object javaObject, Class<?> staticType)

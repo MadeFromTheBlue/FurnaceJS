@@ -43,6 +43,7 @@ public class FurnaceClass
 	 * {@link JSListMembers})
 	 */
 	public ArrayList<Method> listExtra = new ArrayList<Method>();
+	public Method asFunctionMethod = null;
 	
 	public FurnaceClass(Class<?> clazz)
 	{
@@ -106,11 +107,79 @@ public class FurnaceClass
 	{
 		if (f.isAnnotationPresent(JSVar.class))
 		{
-			
+			String id = f.getAnnotation(JSVar.class).value();
+			this.elems.put(id, new MemberSpec(id)
+			{
+				@Override
+				public boolean isGet()
+				{
+					return true;
+				}
+				
+				@Override
+				public boolean isSet()
+				{
+					return true;
+				}
+				
+				@Override
+				public Object get(Object on)
+				{
+					try
+					{
+						return f.get(on);
+					}
+					catch (IllegalArgumentException | IllegalAccessException e)
+					{
+						throw new FurnaceException("Could not get the value of %s", on.getClass().getCanonicalName(), this.name);
+					}
+				}
+				
+				@Override
+				public boolean set(Object on, Object to)
+				{
+					try
+					{
+						f.set(on, to);
+					}
+					catch (IllegalArgumentException | IllegalAccessException e)
+					{
+						throw new FurnaceException("Could not set the value of %s", on.getClass().getCanonicalName(), this.name);
+					}
+					return true;
+				}
+			});
 		}
 		else if (f.isAnnotationPresent(JSConst.class))
 		{
-			
+			String id = f.getAnnotation(JSVar.class).value();
+			this.elems.put(id, new MemberSpec(id)
+			{
+				@Override
+				public boolean isGet()
+				{
+					return true;
+				}
+				
+				@Override
+				public boolean isSet()
+				{
+					return false;
+				}
+				
+				@Override
+				public Object get(Object on)
+				{
+					try
+					{
+						return f.get(on);
+					}
+					catch (IllegalArgumentException | IllegalAccessException e)
+					{
+						throw new FurnaceException("Could not get the value of %s", on.getClass().getCanonicalName(), this.name);
+					}
+				}
+			});
 		}
 	}
 	
@@ -288,8 +357,7 @@ public class FurnaceClass
 	
 	/**
 	 * Calls methods annotated with {@link JSListMembers} and iterates on the
-	 * returned
-	 * lists, arrays, or objects. Each object is passed to a predicate.
+	 * returned lists, arrays, or objects. Each object is passed to a predicate.
 	 * This method terminates early if the predicate returns true.
 	 * 
 	 * @param in The object with the methods
@@ -328,7 +396,7 @@ public class FurnaceClass
 						}
 					}
 				}
-				//we received null
+				//we received null or some other type
 				else
 				{
 					if (consume.apply(out))
